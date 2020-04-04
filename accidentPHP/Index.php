@@ -80,6 +80,9 @@
                   <th scope="col">Lat</th>
                   <th scope="col">Lon</th>
                   <th scope="col">Severity</th>
+                  <th scope="col">Nearest Hospital</th>
+                  <th scope="col">Nearest PoliceStation</th>
+                  <th scope="col">Nearest FireStation</th>
                   <th scope="col">Current Status</th>
 
                 </tr>
@@ -152,10 +155,29 @@
                       </td>
                       <td>
                         <?php 
+                          $nea = array_column($call, 'nearest_hospital');
+                          echo $nea[$c]; 
+                        ?>
+                      </td>
+                      <td>
+                        <?php 
+                          $pol = array_column($call, 'nearest_police');
+                          echo $pol[$c]; 
+                        ?>
+                      </td>
+                      <td>
+                        <?php 
+                          $fire = array_column($call, 'nearest_fire');
+                          echo $fire[$c]; 
+                        ?>
+                      </td>
+                      <td>
+                        <?php 
                           $cur = array_column($call, 'curr_status');
                           echo $cur[$c]; 
                         ?>
                       </td>
+
 
 
                     </tr>
@@ -170,30 +192,70 @@
 
           </br></br></br></br>
             <form method="post"> 
-        <input type="submit" name="button1"
-                class="btn btn-dark" value="Find Severity" /> 
+                <input type="submit" name="button1"
+                class="btn btn-dark" value="Find Severity" onclick="setFocusMap()" /> 
+                <input type="submit" name="button2"
+                class="btn btn-dark" value="Find Nearest Hospital" onclick = "setFocusMap()"/> 
+                <input type="submit" name="button3"
+                class="btn btn-dark" value="Find Nearest PoliceStation" onclick = "setFocusMap()"/> 
+                <input type="submit" name="button4"
+                class="btn btn-dark" value="Find Nearest FireStation" onclick = "setFocusMap()"/> 
+                <input type="submit" name="button5"
+                class="btn btn-dark" value="Send Alert" onclick = "setFocus()"/>
+                <button onClick="window.location.reload();" class="btn btn-dark" >Refresh Page</button>
     
-    </form> 
+            </form> 
+
+            
             <?php
               if(array_key_exists('button1', $_POST)){
                 shell_exec("python ml.py");
-                 
+              }
+              if(array_key_exists('button2', $_POST)){
+                shell_exec("python hospital.py");   
+              }
+              if(array_key_exists('button3', $_POST)){
+                shell_exec("python policestation.py");   
+              }
+              if(array_key_exists('button4', $_POST)){
+                shell_exec("python firestation.py");   
+              }
+              if(array_key_exists('button5', $_POST)){
+                shell_exec("python sendalert.py");   
               }
             ?>
+            
+
           </div>
           </div>
       </section>
 
-      <div class="section-title">
+      <div id= "map_interface" class="section-title">
       <h2>Map Interface</h2>
       </br></br>
       <?php
       require 'DBAcess/activenode.php';
       $sensor = new activenode;
-      $call = $sensor->getActiveNode();
-      $call = json_encode($call, true);
+      $temp = $sensor->getActiveNode();
+      $call = json_encode($temp, true);
       echo '<div id="data">' .$call. '</div>';
-      
+      require 'DBAcess/hospital.php';
+      $h = new hospital;
+      $hd = $h->getAllHospitals();
+      $hdata = json_encode($hd, true);
+      echo '<div id="Hos_data">' .$hdata. '</div>';
+      require 'DBAcess/policestation.php';
+      $p = new policestation;
+      $pd = $p->getAllPolicestations();
+      $pdata = json_encode($pd, true);
+      echo '<div id="Pol_data">' .$pdata. '</div>';
+
+      require 'DBAcess/firestation.php';
+      $f = new firestation;
+      $fd = $f->getAllFireStations();
+      $fidata = json_encode($fd, true);
+      echo '<div id="Fir_data">' .$fidata. '</div>';
+
       ?>
       <div id="map" class="map"><div id="popup" class="ol-popup">
         <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -201,6 +263,8 @@
     </div></div>
     </div>  
     </br></br>
+
+
 
 
     </main>

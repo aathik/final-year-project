@@ -166,3 +166,11 @@
   });
 
 })(jQuery);
+
+
+function setFocus{
+  document.getElementById("about").focus();
+}
+function setFocusMap{
+  document.getElementById("map_interface").focus();
+}

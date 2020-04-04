@@ -8,6 +8,15 @@
 #data{
         display: none;
      }
+#Hos_data{
+        display: none;
+     } 
+#Pol_data{
+        display: none;
+     }
+#Fir_data{
+        display: none;
+     }               
 .ol-popup {
   position: absolute;
   background-color: white;

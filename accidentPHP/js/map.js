@@ -57,6 +57,102 @@ Array.prototype.forEach.call(cdata, function(data){
 
 });
 
+var hdata = JSON.parse(document.getElementById('Hos_data').innerHTML);
+
+Array.prototype.forEach.call(hdata, function(data){
+
+  var marker = new ol.Feature({
+  geometry: new ol.geom.Point(
+  ol.proj.fromLonLat([data.lon,data.lat])),
+  name: [data.name, data.vehicleID],
+  });
+
+  marker.setStyle(new ol.style.Style({
+  image: new ol.style.Icon({
+     anchor: [1,1],
+     anchorXUnits: 'fraction',
+     anchorYUnits: 'fraction',
+     scale : 100/2000, 
+     src: './js/gps.png',
+    })
+  }));
+  var vectorSource = new ol.source.Vector({
+      features: [marker]
+    });
+
+  var markerVectorLayer = new ol.layer.Vector({
+        source: vectorSource,        
+    });
+ 
+  map.addLayer(markerVectorLayer);
+
+
+});
+
+var pdata = JSON.parse(document.getElementById('Pol_data').innerHTML);
+
+Array.prototype.forEach.call(pdata, function(data){
+
+  var marker = new ol.Feature({
+  geometry: new ol.geom.Point(
+  ol.proj.fromLonLat([data.lon,data.lat])),
+  name: [data.name, data.vehicleID],
+  });
+
+  marker.setStyle(new ol.style.Style({
+  image: new ol.style.Icon({
+     anchor: [1,1],
+     anchorXUnits: 'fraction',
+     anchorYUnits: 'fraction',
+     scale : 100/2000, 
+     src: './js/badge.png',
+    })
+  }));
+  var vectorSource = new ol.source.Vector({
+      features: [marker]
+    });
+
+  var markerVectorLayer = new ol.layer.Vector({
+        source: vectorSource,        
+    });
+ 
+  map.addLayer(markerVectorLayer);
+
+
+});
+
+var fidata = JSON.parse(document.getElementById('Fir_data').innerHTML);
+
+Array.prototype.forEach.call(fidata, function(data){
+
+  var marker = new ol.Feature({
+  geometry: new ol.geom.Point(
+  ol.proj.fromLonLat([data.lon,data.lat])),
+  name: [data.name, data.vehicleID],
+  });
+
+  marker.setStyle(new ol.style.Style({
+  image: new ol.style.Icon({
+     anchor: [1,1],
+     anchorXUnits: 'fraction',
+     anchorYUnits: 'fraction',
+     scale : 100/2000, 
+     src: './js/fire.png',
+    })
+  }));
+  var vectorSource = new ol.source.Vector({
+      features: [marker]
+    });
+
+  var markerVectorLayer = new ol.layer.Vector({
+        source: vectorSource,        
+    });
+ 
+  map.addLayer(markerVectorLayer);
+
+
+});
+
 
 
 var closer = document.getElementById('popup-closer');
