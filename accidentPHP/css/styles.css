@@ -16,7 +16,10 @@
      }
 #Fir_data{
         display: none;
-     }               
+     } 
+#Amb_data{
+        display: none;
+     }                 
 .ol-popup {
   position: absolute;
   background-color: white;

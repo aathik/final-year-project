@@ -153,6 +153,38 @@ Array.prototype.forEach.call(fidata, function(data){
 
 });
 
+var Adata = JSON.parse(document.getElementById('Amb_data').innerHTML);
+
+Array.prototype.forEach.call(Adata, function(data){
+
+  var marker = new ol.Feature({
+  geometry: new ol.geom.Point(
+  ol.proj.fromLonLat([data.lon,data.lat])),
+  name: [data.name, data.vehicleID],
+  });
+
+  marker.setStyle(new ol.style.Style({
+  image: new ol.style.Icon({
+     anchor: [1,1],
+     anchorXUnits: 'fraction',
+     anchorYUnits: 'fraction',
+     scale : 100/2000, 
+     src: './js/ambulance.png',
+    })
+  }));
+  var vectorSource = new ol.source.Vector({
+      features: [marker]
+    });
+
+  var markerVectorLayer = new ol.layer.Vector({
+        source: vectorSource,        
+    });
+ 
+  map.addLayer(markerVectorLayer);
+
+
+});
+
 
 
 var closer = document.getElementById('popup-closer');

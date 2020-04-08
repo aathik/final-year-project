@@ -83,6 +83,7 @@
                   <th scope="col">Nearest Hospital</th>
                   <th scope="col">Nearest PoliceStation</th>
                   <th scope="col">Nearest FireStation</th>
+                  <th scope="col">Nearest Ambulance</th>
                   <th scope="col">Current Status</th>
 
                 </tr>
@@ -173,6 +174,12 @@
                       </td>
                       <td>
                         <?php 
+                          $amb = array_column($call, 'nearest_amb');
+                          echo $amb[$c]; 
+                        ?>
+                      </td>
+                      <td>
+                        <?php 
                           $cur = array_column($call, 'curr_status');
                           echo $cur[$c]; 
                         ?>
@@ -199,8 +206,10 @@
                 <input type="submit" name="button3"
                 class="btn btn-dark" value="Find Nearest PoliceStation" onclick = "setFocusMap()"/> 
                 <input type="submit" name="button4"
-                class="btn btn-dark" value="Find Nearest FireStation" onclick = "setFocusMap()"/> 
+                class="btn btn-dark" value="Find Nearest FireStation" onclick = "setFocusMap()"/>
                 <input type="submit" name="button5"
+                class="btn btn-dark" value="Find Nearest Ambulance" onclick = "setFocusMap()"/> 
+                <input type="submit" name="button6"
                 class="btn btn-dark" value="Send Alert" onclick = "setFocus()"/>
                 <button onClick="window.location.reload();" class="btn btn-dark" >Refresh Page</button>
     
@@ -221,6 +230,9 @@
                 shell_exec("python firestation.py");   
               }
               if(array_key_exists('button5', $_POST)){
+                shell_exec("python ambulance.py");   
+              }
+              if(array_key_exists('button6', $_POST)){
                 shell_exec("python sendalert.py");   
               }
             ?>
@@ -239,11 +251,13 @@
       $temp = $sensor->getActiveNode();
       $call = json_encode($temp, true);
       echo '<div id="data">' .$call. '</div>';
+
       require 'DBAcess/hospital.php';
       $h = new hospital;
       $hd = $h->getAllHospitals();
       $hdata = json_encode($hd, true);
       echo '<div id="Hos_data">' .$hdata. '</div>';
+
       require 'DBAcess/policestation.php';
       $p = new policestation;
       $pd = $p->getAllPolicestations();
@@ -255,6 +269,12 @@
       $fd = $f->getAllFireStations();
       $fidata = json_encode($fd, true);
       echo '<div id="Fir_data">' .$fidata. '</div>';
+
+      require 'DBAcess/ambulance.php';
+      $A = new ambulance;
+      $Ad = $A->getAllAmbulances();
+      $Adata = json_encode($Ad, true);
+      echo '<div id="Amb_data">' .$Adata. '</div>';
 
       ?>
       <div id="map" class="map"><div id="popup" class="ol-popup">
