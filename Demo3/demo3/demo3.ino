@@ -26,6 +26,11 @@ float angle_pitch_output, angle_roll_output;
 int flexiForcePin = A0;
 boolean acci=false;                                                 //ACCELEROMETER GYROSCOPE
 
+const int flamepin=A2;
+const int threshold=140;// sets threshold value for flame sensor
+int flamesensvalue=0;
+int fire = 0;
+
 double latitude,longitude;
 
 struct dataHolder{
@@ -35,6 +40,7 @@ struct dataHolder{
   float force;
   double loc_lat; 
   double loc_lon;
+  int fire;
 }data;                                                                  //STRUCTURE TO SEND
 
 int displaycount=0;
@@ -64,7 +70,9 @@ void setup() {
   if (!driver.init())
          Serial.println("init failed");
 
-  strncpy(data.id,"KL64",10);                                           //IDENTIFIER FOR EACH VEHICLE
+  strncpy(data.id,"KL64",10);//IDENTIFIER FOR EACH VEHICLE
+
+  pinMode(flamepin,INPUT);
 
   loop_timer = micros();
 
@@ -112,6 +120,13 @@ void loop() {
   angle_roll_output = angle_roll_output * 0.9 + angle_roll * 0.1;    
 
   long flexiForceReading = analogRead(flexiForcePin);
+  flamesensvalue=analogRead(flamepin);
+  if (flamesensvalue<=threshold) {// compares reading from flame sensor with the threshold value
+    fire = 1;
+  }
+  else{
+    fire = 0;
+  }
 
   displaycount+=1;
 
@@ -138,16 +153,17 @@ void loop() {
     Serial.print("Impact : ");Serial.println(flexiForceReading);
     Serial.print("Latitude : ");Serial.println(latitude,6);
     Serial.print("Longitude : ");Serial.println(longitude,6);
+    Serial.print("Fire : ");Serial.println(fire);
     
-    if((angle_roll_output>10||angle_roll_output<-10||angle_pitch_output>10||angle_pitch_output<-10) && flexiForceReading>50 )
+    if(((angle_roll_output>10||angle_roll_output<-10||angle_pitch_output>10||angle_pitch_output<-10) && flexiForceReading>50 ) || fire==1)
     {
     Serial.println("accident likely to occur");
-    
     data.roll=angle_roll_output;
     data.pitch=angle_pitch_output;
     data.force=flexiForceReading;
     data.loc_lat=latitude;
     data.loc_lon=longitude;
+    data.fire = fire;
     driver.send((uint8_t*)&data,sizeof(struct dataHolder));
     driver.waitPacketSent();
     
