@@ -6,7 +6,7 @@ cursor = connection.cursor()
 sqlV = "SELECT vehicleID,lat,lon FROM sensordata WHERE nearest_amb IS NULL ;"
 cursor.execute(sqlV)
 vehicles = cursor.fetchall()
-sqlA = "SELECT name,lat,lon FROM ambulances WHERE available ='Yes';"
+sqlA = "SELECT name,lat,lon FROM ambulances;"
 cursor.execute(sqlA)
 ambulances = cursor.fetchall()
 print(vehicles)
@@ -37,14 +37,14 @@ for i in range(len(vehicles)):
 		allDist[ambulances[j][0]] = dist
 	minAmbulance = min(allDist, key=allDist.get)
 	minAmb[vehicles[i][0]] = minAmbulance
+	print(allDist)
+
 print(minAmb)
 for k in range(len(vehicles)):
 	updateSQL = "UPDATE sensordata SET nearest_amb = %s WHERE vehicleID = %s ;"
 	val = (minAmb[vehicles[k][0]],vehicles[k][0])
 	cursor.execute(updateSQL,val)
-	updateSQL2 = "UPDATE ambulances SET available='No' WHERE name= %s ;"
-	val=(minAmb[vehicles[k][0]])
-	cursor.execute(updateSQL2,val)
+	
 
 
 connection.commit()	

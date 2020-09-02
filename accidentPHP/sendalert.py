@@ -17,47 +17,42 @@ cursor.execute(sqlA)
 alertA = cursor.fetchall()
 
 import requests
-import json
-
-
-URL = 'https://www.sms4india.com/api/v1/sendCampaign'
-
-def sendPostRequest(reqUrl, apiKey, secretKey, useType, phoneNo, senderId, textMessage):
-  req_params = {
-  'apikey':apiKey,
-  'secret':secretKey,
-  'usetype':useType,
-  'phone': phoneNo,
-  'message':textMessage,
-  'senderid':senderId
-  }
-  return requests.post(reqUrl, req_params)
+url = "https://www.fast2sms.com/dev/bulk"
 
 senderid = "Team Final Year"
 for i in range(len(alertH)):
   number = alertH[i][5]
   latlon = "%s,%s" %(alertH[i][2],alertH[i][3])
-  textMessage = "vehicleID : %s \nHospital : %s \nLat & Lon : %s \nSeverity : %s" %(alertH[i][0],alertH[i][1],latlon,alertH[i][4])
-  #response = sendPostRequest(URL, 'S3XNBK15JQ62U5NTMTBUITY90ONKT7LA', 'ZPSZJ8TF7082EPCS', 'stage', number, senderid, textMessage )
+  textMessage = "vehicleID : %s ,Hospital : %s ,(Lat,Lon) : %s \nSeverity : %s" %(alertH[i][0],alertH[i][1],latlon,alertH[i][4])
+  payload = "sender_id=FSTSMS&message="+textMessage+"&language=english&route=p&numbers="+number
+  headers = {'authorization': "YMzOJrw6k3jaT1bsylhiFuI0og5U287ZLDpvtcxG4XQAVqNfeH9JTVzwsNi5tGRB1ClkEKXmuA8jdWge",'Content-Type': "application/x-www-form-urlencoded",'Cache-Control': "no-cache",}
+  response = requests.request("POST", url, data=payload, headers=headers)
+  print(response.text)
   #uncomment the above line for msging
 for i in range(len(alertP)):
   number = alertP[i][5]
   latlon = "%s,%s" %(alertP[i][2],alertP[i][3])
-  textMessage = "vehicleID : %s \nPolicestation : %s \nLat & Lon : %s \nSeverity : %s" %(alertP[i][0],alertP[i][1],latlon,alertP[i][4])
-  #response = sendPostRequest(URL, 'S3XNBK15JQ62U5NTMTBUITY90ONKT7LA', 'ZPSZJ8TF7082EPCS', 'stage', number, senderid, textMessage )
-  #uncomment the above line for msging
+  textMessage = "vehicleID : %s ,Policestation : %s, (Lat,Lon) : %s, Severity : %s" %(alertP[i][0],alertP[i][1],latlon,alertP[i][4])
+  payload = "sender_id=FSTSMS&message="+textMessage+"&language=english&route=p&numbers="+number
+  headers = {'authorization': "YMzOJrw6k3jaT1bsylhiFuI0og5U287ZLDpvtcxG4XQAVqNfeH9JTVzwsNi5tGRB1ClkEKXmuA8jdWge",'Content-Type': "application/x-www-form-urlencoded",'Cache-Control': "no-cache",}
+  response = requests.request("POST", url, data=payload, headers=headers)
+  print(response.text)  #uncomment the above line for msging
 for i in range(len(alertF)):
   number = alertF[i][5]
   latlon = "%s,%s" %(alertF[i][2],alertF[i][3])
-  textMessage = "vehicleID : %s \nfirestations : %s \nLat & Lon : %s \nSeverity : %s" %(alertF[i][0],alertF[i][1],latlon,alertF[i][4])
-  #response = sendPostRequest(URL, 'S3XNBK15JQ62U5NTMTBUITY90ONKT7LA', 'ZPSZJ8TF7082EPCS', 'stage', number, senderid, textMessage )
-  #uncomment the above line for msging  
+  textMessage = "vehicleID : %s ,firestations : %s ,(Lat,Lon) : %s ,Severity : %s" %(alertF[i][0],alertF[i][1],latlon,alertF[i][4])
+  payload = "sender_id=FSTSMS&message="+textMessage+"&language=english&route=p&numbers="+number
+  headers = {'authorization': "YMzOJrw6k3jaT1bsylhiFuI0og5U287ZLDpvtcxG4XQAVqNfeH9JTVzwsNi5tGRB1ClkEKXmuA8jdWge",'Content-Type': "application/x-www-form-urlencoded",'Cache-Control': "no-cache",}
+  response = requests.request("POST", url, data=payload, headers=headers)
+  print(response.text)  #uncomment the above line for msging  
 for i in range(len(alertA)):
   number = alertA[i][5]
   latlon = "%s,%s" %(alertA[i][2],alertA[i][3])
-  textMessage = "vehicleID : %s \nAmbulance : %s \nLat & Lon : %s \nSeverity : %s" %(alertA[i][0],alertA[i][1],latlon,alertA[i][4])
-  #response = sendPostRequest(URL, 'S3XNBK15JQ62U5NTMTBUITY90ONKT7LA', 'ZPSZJ8TF7082EPCS', 'stage', number, senderid, textMessage )
-  #uncomment the above line for msging  
+  textMessage = "vehicleID : %s ,Ambulance : %s ,(Lat,Lon) : %s ,Severity : %s" %(alertA[i][0],alertA[i][1],latlon,alertA[i][4])
+  payload = "sender_id=FSTSMS&message="+textMessage+"&language=english&route=p&numbers="+number
+  headers = {'authorization': "YMzOJrw6k3jaT1bsylhiFuI0og5U287ZLDpvtcxG4XQAVqNfeH9JTVzwsNi5tGRB1ClkEKXmuA8jdWge",'Content-Type': "application/x-www-form-urlencoded",'Cache-Control': "no-cache",}
+  response = requests.request("POST", url, data=payload, headers=headers)
+  print(response.text)  #uncomment the above line for msging  
 
 import openrouteservice as ors
 import folium
@@ -71,7 +66,7 @@ for i in range(len(alertA)):
   lonlatA = [alertA[i][8], alertA[i][7]]
   lonlatV = [alertA[i][3], alertA[i][2]]
   coordinates =[lonlatA,lonlatV]
-  client = ors.Client(key='5b3ce3597851110001cf6248c228e625795c4872b8509fbb183226dc')
+  client = ors.Client(key='5b3ce3597851110001cf6248fc8413eb1cb14851995984c163e0d59e')
 
   m = folium.Map(location=[10.3070, 76.3341], tiles='openstreetmap', zoom_start=5)
 
