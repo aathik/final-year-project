@@ -5,9 +5,9 @@
 <h2>Architecture</h2>
 <br />
 <p>Accident Detector Units in Each Car</p>
-<img src="https://user-images.githubusercontent.com/39439511/139526574-f4d94f2a-f70a-4973-9afd-b9b9879bdcf2.png" alt="Accident Detector Units in Each Car" width="800"/>
+<img src="https://user-images.githubusercontent.com/39439511/139526574-f4d94f2a-f70a-4973-9afd-b9b9879bdcf2.png" alt="Accident Detector Units in Each Car" width="600"/>
 <p>Block diagram of the Central Hub</p>
-<img src="https://user-images.githubusercontent.com/39439511/139526605-3fcee231-25b4-4f85-a773-c23f3da1a264.png" alt="Block diagram of the Central Hub" width="800"/>
+<img src="https://user-images.githubusercontent.com/39439511/139526605-3fcee231-25b4-4f85-a773-c23f3da1a264.png" alt="Block diagram of the Central Hub" width="600"/>
 
 <h2>Materials Required</h2>
  <ul>
@@ -19,7 +19,8 @@
  <li>Fire Sensor<br /><img src="https://user-images.githubusercontent.com/39439511/139526600-ff5f1409-964d-4237-abc3-0a2065c3f808.jpg" alt="Block diagram of the Central Hub" width="300"/></li>
 </ul> 
 
-
+<h2>Website</h2>
+https://user-images.githubusercontent.com/39439511/139528273-a569aea6-6252-4c99-8ea7-72bb92fed45e.mp4
 
 <h2>Published Paper</h2>
 <img align="left" src="https://user-images.githubusercontent.com/39439511/139527955-15b4b313-6a46-4301-8535-0f1e948f303c.png" alt="Block diagram of the Central Hub" width="50"/><a href="https://www.irjet.net/archives/V7/i4/IRJET-V7I4134.pdf">IRJET - ACCIDENT DETECTION USING VEHICULAR AD-HOC NETWORK</a>
