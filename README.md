@@ -19,13 +19,12 @@
  <li>Fire Sensor<br /><img src="https://user-images.githubusercontent.com/39439511/139526600-ff5f1409-964d-4237-abc3-0a2065c3f808.jpg" alt="Block diagram of the Central Hub" width="300"/></li>
 </ul> 
 
-<h2>Website</h2>
-
-
 
 
 <h2>Published Paper</h2>
-<img align="left" src="https://user-images.githubusercontent.com/39439511/139526600-ff5f1409-964d-4237-abc3-0a2065c3f808.jpg" alt="Block diagram of the Central Hub" width="100"/><a href="https://www.irjet.net/archives/V7/i4/IRJET-V7I4134.pdf">IRJET - ACCIDENT DETECTION USING VEHICULAR AD-HOC NETWORK</a>
+<img align="left" src="https://user-images.githubusercontent.com/39439511/139527955-15b4b313-6a46-4301-8535-0f1e948f303c.png" alt="Block diagram of the Central Hub" width="50"/><a href="https://www.irjet.net/archives/V7/i4/IRJET-V7I4134.pdf">IRJET - ACCIDENT DETECTION USING VEHICULAR AD-HOC NETWORK</a>
+
+
 
 
 
